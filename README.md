@@ -3,8 +3,6 @@ Code for Modality-Aware Feature Distillation ([MAFED](https://arxiv.org/abs/2406
 
 ## Requirements
 Install a conda environment:
-We only support Linux with NVIDIA GPUs. We test on Ubuntu 18.04 and V100 cards.
-We use mixed-precision training hence GPUs with Tensor Cores are recommended.
 
 ```bash
 # Clone the  Repository and setup the environment
