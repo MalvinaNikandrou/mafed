@@ -21,7 +21,7 @@ class BaseDataset(Dataset):
         data_path (str, optional): Path to VQA annotations.
         split_file (str, optional): Path to file containing the question ids for each task and split.
         task (str, optinal): Use only the samples that belong to this task.
-        split (str, optional): [train, val] Use only the samples that belong to this split. 
+        split (str, optional): [train, val] Use only the samples that belong to this split.
         """
         ids = self.prepare_ids(split_file, task)
         with open(os.path.join(data_path, f"{split}_annotations.json"), "r") as f:
