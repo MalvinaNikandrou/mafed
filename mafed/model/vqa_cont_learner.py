@@ -152,7 +152,7 @@ class VLPythiaVQAModule(BaseModule):
             use_flash_attention_2=True,
         )
 
-        LOGGER.info("BRRR The vision encoder is freezing")
+        LOGGER.info("The vision encoder is frozen")
         for p in self.model.vision_encoder.parameters():
             p.requires_grad = False
         self._tokenizer = tokenizer
@@ -198,7 +198,7 @@ class VLPythiaVQACLearner(BaseModule):
             vision_encoder_name=opts.vision_encoder_name,
             use_flash_attention_2=True,
         )
-        LOGGER.info("BRRR The vision encoder is freezing")
+        LOGGER.info("The vision encoder is frozen")
         for p in self.model.vision_encoder.parameters():
             p.requires_grad = False
         self._tokenizer = tokenizer

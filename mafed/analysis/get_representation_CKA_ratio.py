@@ -29,8 +29,10 @@ def main():
 
         for plot_idx, (exp_name, cached_file) in enumerate(zip(exps, paths)):
             if not os.path.exists(cached_filepath):
-                LOGGER.info(f"Cached representations not found in {cached_filepath}:\nPlease run `get_average_CKA_per_layer.py` first to extract the CKA similarities!")
-            
+                LOGGER.info(
+                    f"Cached representations not found in {cached_filepath}:\nPlease run `get_average_CKA_per_layer.py` first to extract the CKA similarities!"
+                )
+
             # CKA similarity per layer: Num Checkpoints X (Num Tasks - 1)
             # Num Checkpoints refers to the number of different runs that we take the average of
             # Num Tasks refers to the number of CL tasks in the sequence

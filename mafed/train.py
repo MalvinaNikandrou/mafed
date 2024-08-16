@@ -121,10 +121,11 @@ class ContinualLearningTrainer:
             memory_size=self.config.cl_memory,
             model_type=self.config.model_type,
             scaler=scaler,
+            reg_lambda=self.config.reg_lambda,  # EWC regularization weight
+            replay_coeff=self.config.replay_coeff,  # Replay loss weight
+            distillation_coeff=self.config.distillation_coeff,  # Feature distillation loss weight
             distillation_modality_weighing_strategy=self.config.distillation_modality_weighing_strategy,
             distillation_layer_weighing_strategy=self.config.distillation_layer_weighing_strategy,
-            replay_coeff=self.config.replay_coeff,
-            distillation_coeff=self.config.distillation_coeff,
             distillation_layer=self.config.distillation_layer,
             cls_distillation=self.config.cls_distillation,
             distillation_loss=self.config.distillation_loss,
@@ -375,6 +376,24 @@ if __name__ == "__main__":
     parser.add_argument("--n_workers", type=int, default=4, help="number of data workers")
     parser.add_argument("--pin_mem", action="store_true", help="pin memory")
     parser.add_argument("--gpus", type=int, default=1)
+    parser.add_argument("--checkpoint_extension", default=".ckpt")
+    parser.add_argument(
+        "--start_task_idx",
+        type=int,
+        default=0,
+        help="Which task to start training from. 0 means that we will train for the first task, "
+        "idx >=1 means that we will train for the idx-th task",
+    )
+    parser.add_argument(
+        "--exp",
+        choices=[
+            "diverse_domains",
+            "taxonomy_domains",
+            "question_types",
+        ],
+        default="question_types",
+        help="Experiment name. This should match the [exp]_splits.json file defining the tasks",
+    )
     # CL parameters
     parser.add_argument("--seed", type=int, default=42, help="random seed for initialization")
     parser.add_argument("--tasks", nargs="+", help="Task config from volta")
@@ -389,21 +408,23 @@ if __name__ == "__main__":
         default="naive",
         help="CL method",
     )
-    parser.add_argument("--checkpoint_extension", default=".ckpt")
-    parser.add_argument("--cl_params", type=float, default=1.0, help="Weight of the CL regularization")
+    # EWC parameters
+    parser.add_argument("--reg_lambda", type=float, default=1.0, help="Weight of the EWC regularization")
+    # Replay parameters
+    parser.add_argument("--cl_memory", type=int, default=4000, help="Total memory size for replay")
     parser.add_argument(
-        "--cl_temperature",
+        "--replay_coeff",
         type=float,
         default=1.0,
-        help="Weight of the CL softmax temperature",
+        help="Weight of the replay loss",
     )
-    parser.add_argument("--cl_memory", type=int, default=4000, help="Total memory size for replay")
     parser.add_argument(
         "--replay_interval",
         type=int,
         default=4,
         help="How often to replay samples from previous tasks",
     )
+    # Feature distillation parameters
     parser.add_argument(
         "--distillation_modality_weighing_strategy",
         choices=["equal", "balanced", "adaptive"],
@@ -415,12 +436,6 @@ if __name__ == "__main__":
         choices=["single", "equal", "discounted", "cumulative"],
         default="single",
         help="How to weigh the feature distillation loss per layer",
-    )
-    parser.add_argument(
-        "--replay_coeff",
-        type=float,
-        default=1.0,
-        help="Weight of the replay loss",
     )
     parser.add_argument(
         "--distillation_coeff",
@@ -449,23 +464,6 @@ if __name__ == "__main__":
         "--cls_distillation",
         action="store_true",
         help="Use cls token for distillation",
-    )
-    parser.add_argument(
-        "--start_task_idx",
-        type=int,
-        default=0,
-        help="Which task to start training from. 0 means that we will train for the first task, "
-        "idx >=1 means that we will train for the idx-th task",
-    )
-    parser.add_argument(
-        "--exp",
-        choices=[
-            "diverse_domains",
-            "taxonomy_domains",
-            "question_types",
-        ],
-        default="question_types",
-        help="Experiment name. This should match the [exp]_splits.json file defining the tasks",
     )
     # Wandb parameters
     parser.add_argument("--run_entity", help="Wandb run entity")

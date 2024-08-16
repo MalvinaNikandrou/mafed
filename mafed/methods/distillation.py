@@ -21,18 +21,18 @@ class FeatureDistillation(CLStrategy):
         memory_size,
         opts,
         model_type,
-        reg_lambda,
         distillation_modality_weighing_strategy: Literal["equal", "balanced", "adaptive"] = "equal",
         distillation_layer_weighing_strategy: Literal["single", "equal", "discounted"] = "single",
         distillation_coeff=1.0,
         replay_coeff=1.0,
         distillation_layer=-1,
+        cls_distillation=False,
         distillation_loss: Literal["cosine", "mse"] = "mse",
         gamma: float = 0.8,
         num_hidden_layers: int = 11,
         **kwargs,
     ):
-        super().__init__(reg_lambda=reg_lambda, opts=opts)
+        super().__init__(opts=opts)
         self.memory_size = memory_size
         num_mem_tasks = len(opts.tasks) - 1
         self.memory_per_task = int(memory_size / num_mem_tasks)
@@ -51,6 +51,7 @@ class FeatureDistillation(CLStrategy):
         self.replay_coeff = replay_coeff
         self.distillation_coeff = distillation_coeff
         self.weighing_strategy = distillation_modality_weighing_strategy
+        self._cls_distillation = cls_distillation
         if distillation_loss == "cosine":
             self.distill_loss_fn = torch.nn.CosineEmbeddingLoss(reduction="none")
             self._compute_distillation_loss = self._compute_cosine_distillation_loss

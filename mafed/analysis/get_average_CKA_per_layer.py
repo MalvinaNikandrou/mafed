@@ -170,7 +170,9 @@ class CKARepresentationSimilarity:
         # CKA similarity per layer: Num Checkpoints X (Num Tasks - 1)
         # Num Checkpoints refers to the number of different runs that we take the average of
         # Num Tasks refers to the number of CL tasks in the sequence
-        cka = {layer: np.zeros((len(self.config.checkpoint_dirs), len(self.config.tasks) - 1)) for layer in self.all_layers}
+        cka = {
+            layer: np.zeros((len(self.config.checkpoint_dirs), len(self.config.tasks) - 1)) for layer in self.all_layers
+        }
         for run_index, checkpoint_dir in enumerate(self.config.checkpoint_dirs):
             LOGGER.info(f"Run: {run_index}")
             all_results = []

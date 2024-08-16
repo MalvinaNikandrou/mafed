@@ -92,9 +92,7 @@ class VQAInstanceCreator:
                 print(f"Reading {split_file}...")
                 with open(split_file, "r") as fp:
                     splits_ids = json.load(fp)
-                ids_per_split[split].extend(
-                    list(itertools.chain.from_iterable([splits_ids[t] for t in splits_ids]))
-                )
+                ids_per_split[split].extend(list(itertools.chain.from_iterable([splits_ids[t] for t in splits_ids])))
 
         ids_per_split = {k: list(set(v)) for k, v in ids_per_split.items()}
         return ids_per_split

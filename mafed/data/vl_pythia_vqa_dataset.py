@@ -48,7 +48,7 @@ class VLPythiaVQADataset(BaseDataset):
         data_path (str, optional): Path to VQA annotations.
         split_file (str, optional): Path to file containing the question ids for each task and split.
         task (str, optinal): Use only the samples that belong to this task.
-        split (str, optional): [train, val] Use only the samples that belong to this split. 
+        split (str, optional): [train, val] Use only the samples that belong to this split.
         """
         super().__init__(
             data_path=data_path,
