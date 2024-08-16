@@ -74,7 +74,7 @@ class DistillationWeights:
         elif self._modality_weighing_strategy == "balanced":
             return self._get_balanced_loss_weights()
         elif self._modality_weighing_strategy == "adaptive":
-            return self._get_importance_layer_loss_weights(layer)
+            return self._get_adaptive_layer_loss_weights(layer)
         else:
             raise NotImplementedError
 
