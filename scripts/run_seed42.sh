@@ -3,7 +3,7 @@ python mafed/train.py \
     --exp question_types \
     --cl_method naive \
     --seed 42 \
-    --tasks action count subcat scene color \
+    --tasks action count subcategory scene color \
     --model_name storage/models/vl-pythia-eva-1b \
     --run_group question_types_naive_vl-pythia-eva-1b \
     --run_name vl-pythia-eva-1b_seed42 \
@@ -20,7 +20,7 @@ python mafed/train.py \
     --cl_method ewc \
     --reg_lambda 10000 \
     --seed 42 \
-    --tasks action count subcat scene color \
+    --tasks action count subcategory scene color \
     --model_name storage/models/vl-pythia-eva-1b \
     --run_group question_types_ewc_vl-pythia-eva-1b \
     --run_name vl-pythia-eva-1b_seed42 \
@@ -37,7 +37,7 @@ python mafed/train.py \
     --cl_method replay \
     --replay_interval 4 \
     --seed 42 \
-    --tasks action count subcat scene color \
+    --tasks action count subcategory scene color \
     --model_name storage/models/vl-pythia-eva-1b \
     --run_group question_types_replay_vl-pythia-eva-1b \
     --run_name vl-pythia-eva-1b_seed42 \
@@ -59,7 +59,7 @@ python mafed/train.py \
     --replay_interval 4 \
     --replay_coeff 1 \
     --seed 42 \
-    --tasks action count subcat scene color \
+    --tasks action count subcategory scene color \
     --model_name storage/models/vl-pythia-eva-1b \
     --run_group question_types_featdistill_vl-pythia-eva-1b \
     --run_name vl-pythia-eva-1b_seed42 \
@@ -82,7 +82,7 @@ python mafed/train.py \
     --replay_interval 4 \
     --replay_coeff 1 \
     --seed 42 \
-    --tasks action count subcat scene color \
+    --tasks action count subcategory scene color \
     --model_name storage/models/vl-pythia-eva-1b \
     --run_group question_types_mafedB_vl-pythia-eva-1b \
     --run_name vl-pythia-eva-1b_seed42 \
@@ -104,7 +104,7 @@ python mafed/train.py \
     --replay_interval 4 \
     --replay_coeff 1 \
     --seed 42 \
-    --tasks action count subcat scene color \
+    --tasks action count subcategory scene color \
     --model_name storage/models/vl-pythia-eva-1b \
     --run_group question_types_mafedA_vl-pythia-eva-1b \
     --run_name vl-pythia-eva-1b_seed42 \
