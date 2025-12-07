@@ -4,17 +4,17 @@ import shutil
 from huggingface_hub import hf_hub_download
 
 REPOS_AND_FILES = {
-    "gpantaz/vl-pythia-eva-160m": [
+    "tofu-logs/vl-pythia-eva-160m": [
         "checkpoint-final/model.safetensors",
         "checkpoint-final/config.json",
         "checkpoint-final/generation_config.json",
     ],
-    "gpantaz/vl-pythia-eva-410m": [
+    "tofu-logs/vl-pythia-eva-410m": [
         "checkpoint-final/model.safetensors",
         "checkpoint-final/config.json",
         "checkpoint-final/generation_config.json",
     ],
-    "gpantaz/vl-pythia-eva-1b": [
+    "tofu-logs/vl-pythia-eva-1b": [
         "checkpoint-final/model-00001-of-00002.safetensors",
         "checkpoint-final/model-00002-of-00002.safetensors",
         "checkpoint-final/model.safetensors.index.json",
